@@ -3,7 +3,7 @@ import { defineAsyncComponent } from 'vue';
 
 const Design = defineAsyncComponent(
   // @ts-ignore - Vue SFC type declarations are provided by the project shims, which are not present here.
-  () => import('./components/Design.vue')
+  () => import('./components/manual.vue/index.js')
 );
 </script>
 

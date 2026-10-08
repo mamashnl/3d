@@ -15,10 +15,10 @@ html, body {
       align-items: center;
 }
   .frame-design {
-      width: min(90vw, 720px);
+      width: min(90vw, 820px);
       height: 420px;
-      border: 1px solid #dfe3ea;
-      background: rgba(255,255,255,0.04);
+      border: 1px solid #343538;
+      background: #fdfdfd;
       overflow: hidden;
 }
   #pullroll {

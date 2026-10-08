@@ -58,15 +58,15 @@ onMounted(() => {
     if (!container.value) return;
 
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(45, 10, 0.1, 1000);
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     container.value.appendChild(renderer.domElement);
 
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x41464d, 1.1));
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xffffff, 1.1));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
     keyLight.position.set(4, 6, 5);
     scene.add(keyLight);
 
@@ -80,9 +80,9 @@ onMounted(() => {
             const materials = Array.isArray(object.material) ? object.material : [object.material];
             materials.forEach((material) => {
                 if (!(material instanceof THREE.MeshStandardMaterial)) return;
-                material.color.set(0x9ba4ad);
-                material.metalness = Math.min(material.metalness, 0.15);
-                material.roughness = Math.max(material.roughness, 0.45);
+                material.color.set(0xffffff);
+                material.metalness = Math.min(material.metalness, 0.85);
+                material.roughness = Math.max(material.roughness, 0.20);
             });
         });
 
@@ -101,17 +101,17 @@ onMounted(() => {
                 : Math.sign(distanceFromCenter);
             const name = object.name.toLowerCase();
             const movementFactor = name.includes('barjoin')
-                ? 0.08
+                ? 0.15
                 : name.includes('barmiddle')
-                    ? 0.22
+                    ? 0.20
                     : name.includes('barmounting')
-                        ? 0.36
-                        : 0.08;
+                        ? 0.25
+                        : 0.0;
 
             return {
                 object,
                 baseX: object.position.x,
-                offset: direction * Math.max(Math.abs(distanceFromCenter) * movementFactor, modelSpan * 0.025),
+                offset: direction * Math.max(Math.abs(distanceFromCenter) * movementFactor, modelSpan * 0.035),
             };
         });
 
