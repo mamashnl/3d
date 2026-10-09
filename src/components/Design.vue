@@ -82,7 +82,7 @@ onMounted(() => {
                 if (!(material instanceof THREE.MeshStandardMaterial)) return;
                 material.color.set(0xffffff);
                 material.metalness = Math.min(material.metalness, 0.85);
-                material.roughness = Math.max(material.roughness, 0.20);
+                material.roughness = Math.max(material.roughness, 0.10);
             });
         });
 
@@ -119,12 +119,8 @@ onMounted(() => {
         scene.add(model);
 
         const radius = modelSpan / 2;
-        const distance = radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.2;
-        camera.position.set(0, 0, distance);
-        camera.near = Math.max(distance / 100, 0.01);
-        camera.far = distance * 100;
-        camera.lookAt(0, 0, 0);
-        camera.updateProjectionMatrix();
+        const distance = radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 1;
+        camera.position.set(-7, 5, 8);
         controls = new OrbitControls(camera, renderer.domElement);
         controls.target.set(0, 0, 0);
         controls.minDistance = distance * 0.4;
@@ -153,10 +149,14 @@ onBeforeUnmount(() => {
     <div class="wrapper">
         <div class="frame-design">
             <div id="pullroll" ref="container"></div>
+            <div class="footer-3d">
+                <button id="expand" type="button" :disabled="!isModelReady" @click="toggleExplodedView">
+                    <img class="button-icon" :src=" isExpanded ? '/assets/collapse.svg' : '/assets/expand.svg'" alt="" srcset="">
+                    {{ isExpanded ?  'Collapse' : 'Expand' }}
+                </button>
+                <p>Gambar Interaktif: Klik dan gerakkan Mouse untuk memutar objek 3D ini!</p>
+            </div>
         </div>
-        <button id="expand" type="button" :disabled="!isModelReady" @click="toggleExplodedView">
-          {{ isExpanded ? 'Collapse' : 'Expand' }}
-        </button>
     </div>
   </section>
 </template>
